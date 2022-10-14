@@ -1,7 +1,12 @@
-Rails.application.routes.draw do
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+# frozen_string_literal: true
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+    sessions: 'sessions',
+    registrations: 'registrations'
+  }
+
+  resources :speeches
 end

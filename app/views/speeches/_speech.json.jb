@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+{
+  id: speech.id,
+  content: speech.content,
+  author: speech.author,
+  keywords: speech.keywords,
+  speech_date: begin
+    speech.speech_date.strftime('%m/%d/%Y')
+  rescue StandardError
+    ''
+  end
+}
