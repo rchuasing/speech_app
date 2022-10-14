@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Requirements:
 
-Things you may want to cover:
+- pg_trgm extension
 
-* Ruby version
+  - to install in ubuntu
+    sudo apt install postgresql-contrib
 
-* System dependencies
+- postgresql
 
-* Configuration
+Setup instructions:
 
-* Database creation
+- bundle install
+- bundle exec rake db:create
+- bundle exec rake db:migrate
 
-* Database initialization
+To generate swagger docs:
 
-* How to run the test suite
+- bundle exec rake rswag:specs:swaggerize
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* API documentation can be found in localhost:3000/api-docs after running the server

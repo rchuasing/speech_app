@@ -13,12 +13,20 @@ module FixDateFormatting
 
   def inherited(subclass)
     super
-    if subclass.table_exists?
+    if database_exists? && subclass.table_exists?
       date_attributes = subclass.attribute_types.select { |_, type| type.is_a?(ActiveRecord::Type::Date) }
       date_attributes.each do |name, _type|
         subclass.attribute name, EasyDate.new
       end
     end
+  end
+
+  def database_exists?
+    ActiveRecord::Base.connection
+  rescue ActiveRecord::NoDatabaseError
+    false
+  else
+    true
   end
 end
 
