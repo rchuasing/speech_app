@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :speech do
     content { 'Sample content' }
     author { 'The Author' }
-    speech_date { Time.zone.now }
+    speech_date { '10/14/2022' }
     keywords { 'key,words' }
 
     association :user

@@ -28,7 +28,7 @@ RSpec.describe 'Authentication API', type: :request do
         let(:email) { user.email }
         let(:password) { 'password4johndoe' }
 
-        let(:params) { { email: email, password: password } }
+        let(:params) { { email:, password: } }
 
         run_test! do |response|
           expect(response.headers['access-token']).not_to be_empty
@@ -42,7 +42,7 @@ RSpec.describe 'Authentication API', type: :request do
         let(:user) { create(:user) }
         let(:email) { user.email }
         let(:password) { 'asdf' }
-        let(:params) { { email: email, password: password } }
+        let(:params) { { email:, password: } }
 
         run_test!
       end

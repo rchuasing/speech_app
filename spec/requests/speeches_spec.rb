@@ -57,7 +57,7 @@ RSpec.describe 'Speeches API', type: :request do
         end
         let!(:new_speech_two) do
           create(:speech, user: current_user, content: 'hello world this is a test', author: 'hello',
-                          speech_date: 'last week')
+                          speech_date: 'October 5, 2022')
         end
         let!(:query) { '' }
         let!(:date_filter) { 'October 15, 2022' }

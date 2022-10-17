@@ -12,12 +12,12 @@ class SpeechesController < ApplicationController
   end
 
   def create
-    result = CreateSpeech.call(speech_params.merge({ current_user: current_user }))
+    result = CreateSpeech.call(speech_params.merge({ current_user: }))
     @speech = result.speech
   end
 
   def update
-    result = UpdateSpeech.call(speech_params.merge({ current_user: current_user, speech: speech }))
+    result = UpdateSpeech.call(speech_params.merge({ current_user:, speech: }))
     @speech = result.speech
   end
 

@@ -6,7 +6,7 @@ class CreateSpeech
   def call
     context.speech = Speech.new(
       user: context.current_user,
-      keywords: keywords,
+      keywords:,
       content: context.content,
       author: context.author,
       speech_date: context.speech_date
