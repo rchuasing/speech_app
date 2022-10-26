@@ -16,22 +16,24 @@ RSpec.configure do |config|
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
     'v1/swagger.yaml' => {
-      swagger: '2.0',
+      openapi: '3.0.3',
       info: {
         title: 'Speech API V1',
         version: 'v1'
       },
-      securityDefinitions: {
-        bearer: {
-          type: :apiKey,
-          name: 'Authorization',
-          in: :header
+      components: {
+        securitySchemes: {
+          bearer: {
+            type: :apiKey,
+            name: 'Authorization',
+            in: :header
+          }
         }
       },
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
               default: 'localhost:3000'
@@ -46,5 +48,5 @@ RSpec.configure do |config|
   # The swagger_docs configuration option has the filename including format in
   # the key, this may want to be changed to avoid putting yaml in json files.
   # Defaults to json. Accepts ':json' and ':yaml'.
-  config.swagger_format = :json
+  config.swagger_format = :yaml
 end

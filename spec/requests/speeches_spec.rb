@@ -53,7 +53,7 @@ RSpec.describe 'Speeches API', type: :request do
       response '200', 'list based on date_filter' do
         let!(:current_user) { create(:user, email: 'test@sample.com') }
         let!(:new_speech) do
-          create(:speech, user: current_user, content: 'lorem ipsum', author: 'lorem', speech_date: 'today')
+          create(:speech, user: current_user, content: 'lorem ipsum', author: 'lorem', speech_date: '10/15/2022')
         end
         let!(:new_speech_two) do
           create(:speech, user: current_user, content: 'hello world this is a test', author: 'hello',
@@ -158,7 +158,7 @@ RSpec.describe 'Speeches API', type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data['status']).to eq('Ok')
-          expect(Speech.where(id: id).count).to eq(0)
+          expect(Speech.where(id:).count).to eq(0)
         end
       end
 

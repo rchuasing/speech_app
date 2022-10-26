@@ -30,6 +30,19 @@ RSpec.describe 'Authentication API', type: :request do
 
         let(:params) { { email:, password: } }
 
+        example 'application/json', :successful_login, {
+          "data": {
+            "email": 'test@email.com',
+            "provider": 'email',
+            "uid": 'test@email.com',
+            "id": 1,
+            "allow_password_change": false,
+            "name": nil,
+            "nickname": nil,
+            "image": nil
+          }
+        }
+
         run_test! do |response|
           expect(response.headers['access-token']).not_to be_empty
           expect(response.headers['Authorization']).not_to be_empty

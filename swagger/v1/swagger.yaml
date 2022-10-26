@@ -1,401 +1,233 @@
-{
-  "swagger": "2.0",
-  "info": {
-    "title": "Speech API V1",
-    "version": "v1"
-  },
-  "securityDefinitions": {
-    "bearer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header"
-    }
-  },
-  "paths": {
-    "/auth/sign_in": {
-      "post": {
-        "summary": "Signs in user",
-        "security": [
-          {
-            "Authorization": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Authentication"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "params",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "required": [
-                "email",
-                "password"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user signed in"
-          },
-          "401": {
-            "description": "invalid sign in"
-          }
-        }
-      }
-    },
-    "/auth/sign_out": {
-      "delete": {
-        "summary": "Signs out user",
-        "security": [
-          {
-            "Authorization": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Authentication"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string",
-            "nullable": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user signed in"
-          },
-          "404": {
-            "description": "user is not signed in"
-          }
-        }
-      }
-    },
-    "/auth": {
-      "post": {
-        "summary": "Register a user",
-        "tags": [
-          "Registration"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "params",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "required": [
-                "email",
-                "password"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user registered"
-          },
-          "422": {
-            "description": "invalid registration"
-          }
-        }
-      }
-    },
-    "/speeches": {
-      "get": {
-        "summary": "Fetch speech list",
-        "security": [
-          {
-            "bearer": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Speech"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "name": "date_filter",
-            "in": "query",
-            "type": "string",
-            "nullable": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list based on date_filter"
-          }
-        }
-      },
-      "post": {
-        "summary": "Creates a speech",
-        "security": [
-          {
-            "bearer": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Speech"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "speech",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string"
-                },
-                "speech_date": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "keywords": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "nullable": true
-                },
-                "author": {
-                  "type": "string",
-                  "nullable": true
-                }
-              },
-              "required": [
-                "content"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "speech created"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      }
-    },
-    "/speeches/{id}": {
-      "get": {
-        "summary": "Fetch a speech",
-        "security": [
-          {
-            "bearer": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Speech"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "speech updated"
-          },
-          "404": {
-            "description": "invalid {id}"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a speech",
-        "security": [
-          {
-            "bearer": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Speech"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "speech updated"
-          },
-          "404": {
-            "description": "invalid {id}"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update a speech",
-        "security": [
-          {
-            "bearer": [
-
-            ]
-          }
-        ],
-        "tags": [
-          "Speech"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "speech",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string"
-                },
-                "speech_date": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "keywords": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "nullable": true
-                },
-                "author": {
-                  "type": "string",
-                  "nullable": true
-                }
-              },
-              "required": [
-                "content"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "speech updated"
-          },
-          "422": {
-            "description": "invalid speech"
-          },
-          "404": {
-            "description": "invalid {id}"
-          }
-        }
-      }
-    }
-  },
-  "servers": [
-    {
-      "url": "https://{defaultHost}",
-      "variables": {
-        "defaultHost": {
-          "default": "localhost:3000"
-        }
-      }
-    }
-  ]
-}
+---
+openapi: 3.0.3
+info:
+  title: Speech API V1
+  version: v1
+components:
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+paths:
+  "/auth/sign_in":
+    post:
+      summary: Signs in user
+      security:
+      - Authorization: []
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: user signed in
+          content:
+            application/json:
+              examples:
+                successful_login:
+                  value:
+                    data:
+                      email: test@email.com
+                      provider: email
+                      uid: test@email.com
+                      id: 1
+                      allow_password_change: false
+                      name: 
+                      nickname: 
+                      image: 
+        '401':
+          description: invalid sign in
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+  "/auth/sign_out":
+    delete:
+      summary: Signs out user
+      security:
+      - Authorization: []
+      tags:
+      - Authentication
+      parameters:
+      - name: access-token
+        in: header
+        nullable: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        nullable: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user signed in
+        '404':
+          description: user is not signed in
+  "/auth":
+    post:
+      summary: Register a user
+      tags:
+      - Registration
+      parameters: []
+      responses:
+        '200':
+          description: user registered
+        '422':
+          description: invalid registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+  "/speeches":
+    get:
+      summary: Fetch speech list
+      security:
+      - bearer: []
+      tags:
+      - Speech
+      parameters:
+      - name: query
+        in: query
+        nullable: true
+        schema:
+          type: string
+      - name: date_filter
+        in: query
+        nullable: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: list based on date_filter
+    post:
+      summary: Creates a speech
+      security:
+      - bearer: []
+      tags:
+      - Speech
+      parameters: []
+      responses:
+        '200':
+          description: speech created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                speech_date:
+                  type: string
+                  nullable: true
+                keywords:
+                  type: array
+                  items:
+                    type: string
+                  nullable: true
+                author:
+                  type: string
+                  nullable: true
+              required:
+              - content
+  "/speeches/{id}":
+    get:
+      summary: Fetch a speech
+      security:
+      - bearer: []
+      tags:
+      - Speech
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: speech updated
+        '404':
+          description: invalid {id}
+    delete:
+      summary: Delete a speech
+      security:
+      - bearer: []
+      tags:
+      - Speech
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: speech updated
+        '404':
+          description: invalid {id}
+    put:
+      summary: Update a speech
+      security:
+      - bearer: []
+      tags:
+      - Speech
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: speech updated
+        '422':
+          description: invalid speech
+        '404':
+          description: invalid {id}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                speech_date:
+                  type: string
+                  nullable: true
+                keywords:
+                  type: array
+                  items:
+                    type: string
+                  nullable: true
+                author:
+                  type: string
+                  nullable: true
+              required:
+              - content
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

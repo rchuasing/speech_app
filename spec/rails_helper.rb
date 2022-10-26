@@ -66,6 +66,8 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
+  config.swagger_dry_run = false
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
